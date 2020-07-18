@@ -1,3 +1,10 @@
 user:
   repo:
     name: AnnaPostek
+
+desired:
+  repo: ${DESIRED_REPO:listofrepo}
+  user: ${DESIRED_USER:annapostek}
+
+application:
+  level.org.springframework: debug
