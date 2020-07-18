@@ -1,6 +1,8 @@
 package pl.postek.my_repo_list.controller;
 
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -31,11 +33,17 @@ public class MyRepoListRestController {
         ListOfRepo[] repository = service.getRepository();
         log.info("repository:  [{}]", repository);
         return repository;
+
     }
 
     @GetMapping("/my-repo-branches")
-    public List<Branch> getMyBranches() {
-        return service.getBranches();
+    public ResponseEntity<List<Branch>> getMyBranches() {
+        List<Branch> result = service.getBranches();
+        if(!result.isEmpty()){
+            return ResponseEntity.ok(result);
+        } else {
+            return new ResponseEntity(HttpStatus.NOT_FOUND);
+        }
     }
 
 }
